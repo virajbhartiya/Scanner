@@ -67,8 +67,8 @@ class _ViewDocumentState extends State<ViewDocument>
     selectedImageIndex = [];
     int index = 1;
     directoryData = await database.getDirectoryData(widget.directoryOS.dirName);
-    debugPrint(
-        'Directory table[${widget.directoryOS.dirName}] => $directoryData');
+    // debugPrint(
+    //     'Directory table[${widget.directoryOS.dirName}] => $directoryData');
     for (var image in directoryData) {
       /// Updating first image path after delete
       if (updateFirstImage) {
@@ -429,7 +429,7 @@ class _ViewDocumentState extends State<ViewDocument>
                                   setState(() {
                                     String _openResult =
                                         "type=${result.type}  message=${result.message}";
-                                    debugPrint(_openResult);
+                                    // debugPrint(_openResult);
                                   });
                                 },
                               ),
@@ -581,12 +581,12 @@ class _ViewDocumentState extends State<ViewDocument>
                             setState(() {});
                           },
                           onNoReorder: (int index) {
-                            debugPrint(
-                                '${DateTime.now().toString().substring(5, 22)} reorder cancelled. index:$index');
+                            // debugPrint(
+                            //     '${DateTime.now().toString().substring(5, 22)} reorder cancelled. index:$index');
                           },
                           onReorderStarted: (int index) {
-                            debugPrint(
-                                '${DateTime.now().toString().substring(5, 22)} reorder started: index:$index');
+                            // debugPrint(
+                            //     '${DateTime.now().toString().substring(5, 22)} reorder started: index:$index');
                           },
                         ),
                       ],

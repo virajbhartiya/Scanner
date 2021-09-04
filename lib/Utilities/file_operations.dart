@@ -95,7 +95,7 @@ class FileOperations {
         );
       }
     }
-    debugPrint(imageFiles.toString());
+    // debugPrint(imageFiles.toString());
     return imageFiles;
   }
 
@@ -195,7 +195,7 @@ class FileOperations {
       desiredQuality = 100;
     }
 
-    debugPrint(desiredQuality.toString());
+    // debugPrint(desiredQuality.toString());
     Directory cacheDir = await getTemporaryDirectory();
     for (ImageOS image in images) {
       path = await FlutterScannerCropper.compressImage(

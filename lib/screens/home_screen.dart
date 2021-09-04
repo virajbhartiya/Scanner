@@ -9,6 +9,7 @@ import 'package:scan/screens/view_document.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'merge_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static String route = "HomeScreen";
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Future<List<DirectoryOS>> getMasterData() async {
     masterDirectories = [];
     masterData = await database.getMasterData();
-    debugPrint('Master Table => $masterData');
+    // debugPrint('Master Table => $masterData');
     for (var directory in masterData) {
       var flag = false;
       for (var dir in masterDirectories) {
@@ -158,6 +159,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 fontWeight: FontWeight.w600,
                 color: Theme.of(context).accentColor),
           ),
+          actions: [
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Theme.of(context).accentColor,
+              ),
+              child: IconButton(
+                color: Colors.white,
+                icon: Icon(Icons.merge_type_outlined),
+                onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MergeScreen())),
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            )
+          ],
         ),
         body: RefreshIndicator(
           backgroundColor: Theme.of(context).primaryColorLight,

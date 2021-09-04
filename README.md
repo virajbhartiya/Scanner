@@ -29,7 +29,7 @@
 -  url_launcher: ^6.0.6
 -  flutter_launcher_icons:
 -  google_fonts:
-
+-  file_picker: 
 # RUN INSTRUCTIONS
 
 ```cmd
