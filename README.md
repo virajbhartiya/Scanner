@@ -4,21 +4,6 @@
 - Simple and powerful cropping features.
 - Share as PDF/JPGs.
 
-### WORK PRODUCTIVITY:
-
-- Increase your office/work productivity by scanning and saving your documents or notes quickly and share them with anyone.
-- Capture your ideas or flowcharts that you jot down hurriedly and upload them to your choice of cloud storage instantly.
-- Never forget anyone's contact information by scanning the business cards and storing them.
-- Scan printed documents and save them to be reviewed later or send them to your contacts to review it.
-- Never worry when it comes to receipts anymore. Just scan the receipts and save them to your device and share them whenever necessary.
-
-### EDUCATIONAL PRODUCTIVITY
-
-- Scan all your handwritten notes and share them instantly to your friends during stressful exam times.
-- Never miss another lecture notes. All documents are timestamped, so just look up the date or time of the lecture to quickly bring up the lecture notes.
-- Take pictures of the whiteboards or the blackboards for future reference and save those as PDFs.
-- Upload your class notes to your choice of cloud storage instantly.
-
 ## PACKAGES USED
 
 -  flutter_absolute_path: ^1.0.6
@@ -45,7 +30,7 @@
 -  flutter_launcher_icons:
 -  google_fonts:
 
-# BUILD INSTRUCTIONS
+# RUN INSTRUCTIONS
 
 ```cmd
 git clone https://github.com/virajbhartiya/Scanner.git
