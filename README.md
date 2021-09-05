@@ -3,6 +3,7 @@
 - Scan your documents, notes, business cards.
 - Simple and powerful cropping features.
 - Share as PDF/JPGs.
+- Merge Multiple PDFs
 
 ## PACKAGES USED
 
@@ -29,7 +30,8 @@
 -  url_launcher: ^6.0.6
 -  flutter_launcher_icons:
 -  google_fonts:
-
+-  file_picker: 
+-  pdf_merger: ^0.0.6
 # RUN INSTRUCTIONS
 
 ```cmd

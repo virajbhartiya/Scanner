@@ -65,7 +65,7 @@ class DatabaseHelper {
     });
 
     getDirectoryTableName(directory.dirName);
-    debugPrint('Directory Index: $index');
+    // debugPrint('Directory Index: $index');
     db.execute('''
       CREATE TABLE $_dirTableName(
       idx INTEGER,
