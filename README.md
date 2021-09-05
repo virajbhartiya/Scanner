@@ -4,6 +4,7 @@
 - Simple and powerful cropping features.
 - Share as PDF/JPGs.
 - Merge Multiple PDFs
+- PDF Viewer
 
 ## PACKAGES USED
 
@@ -29,6 +30,7 @@
 -  file_picker: 
 -  pdf_merger: ^0.0.6
 -  flutter_launcher_icons:
+-  flutter_full_pdf_viewer:
 # RUN INSTRUCTIONS
 
 ```cmd
