@@ -51,6 +51,7 @@ class FileOperations {
             build: (pw.Context context) {
               return pw.Center(
                 // child: pw.Image.provider(image),
+                // ignore: deprecated_member_use
                 child: pw.Image(image),
               );
             },

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:scan/screens/home_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,21 +12,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool visitingFlag = false;
-  bool databaseFlag = false;
-
-  void getFlag() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    if (preferences.getBool("alreadyVisited") != null) {
-      visitingFlag = true;
-    }
-    await preferences.setBool('alreadyVisited', true);
-    if (preferences.getBool("database") != null) {
-      databaseFlag = true;
-    }
-    await preferences.setBool('database', true);
-  }
-
   void getTimerWid() {
     Timer(
       Duration(milliseconds: 500),
@@ -38,7 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    getFlag();
     getTimerWid();
   }
 

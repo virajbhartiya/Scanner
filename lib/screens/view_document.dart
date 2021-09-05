@@ -54,7 +54,6 @@ class _ViewDocumentState extends State<ViewDocument>
   ImageOS displayImage;
   int imageQuality = 3;
   AnimationController _animationController;
-  Animation<double> _progress;
   TapDownDetails _doubleTapDetails;
 
   void getDirectoryData({
@@ -300,8 +299,6 @@ class _ViewDocumentState extends State<ViewDocument>
           ..addListener(() {
             setState(() {});
           });
-    _progress =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
   }
 
   @override
@@ -424,11 +421,9 @@ class _ViewDocumentState extends State<ViewDocument>
                                   );
                                   Directory storedDirectory =
                                       await getApplicationDocumentsDirectory();
-                                  final result = await OpenFile.open(
+                                  await OpenFile.open(
                                       '${storedDirectory.path}/$fileName.pdf');
                                   setState(() {
-                                    String _openResult =
-                                        "type=${result.type}  message=${result.message}";
                                     // debugPrint(_openResult);
                                   });
                                 },

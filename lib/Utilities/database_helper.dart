@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:scan/Utilities/Classes.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -54,7 +53,7 @@ class DatabaseHelper {
 
   Future createDirectory({DirectoryOS directory}) async {
     Database db = await instance.database;
-    int index = await db.insert(_masterTableName, {
+    await db.insert(_masterTableName, {
       'dir_name': directory.dirName,
       'dir_path': directory.dirPath,
       'created': directory.created.toString(),

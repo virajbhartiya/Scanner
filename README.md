@@ -8,7 +8,6 @@
 ## PACKAGES USED
 
 -  flutter_absolute_path: ^1.0.6
--  flutter_full_pdf_viewer: ^1.0.6
 -  flutter_scanner_cropper:
     - git:
       - url: https://github.com/Ethereal-Developers-Inc/flutter-scanner-plugin.git
@@ -24,11 +23,8 @@
 -  quick_actions: ^0.6.0+2
 -  reorderables: ^0.3.2
 -  share_extend: ^1.1.9
--  shared_preferences: ^0.5.7+3
 -  simple_animated_icon: ^1.0.0
 -  sqflite: ^1.3.1+2
--  url_launcher: ^6.0.6
--  flutter_launcher_icons:
 -  google_fonts:
 -  file_picker: 
 -  pdf_merger: ^0.0.6
