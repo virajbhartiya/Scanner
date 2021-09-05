@@ -179,6 +179,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  get:
+    dependency: transitive
+    description:
+      name: get
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.3.8"
   google_fonts:
     dependency: "direct dev"
     description:
@@ -305,6 +312,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.13.0"
+  pdf_merger:
+    dependency: "direct main"
+    description:
+      name: pdf_merger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   pedantic:
     dependency: transitive
     description:
