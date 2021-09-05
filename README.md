@@ -17,7 +17,6 @@
 -  focused_menu: ^1.0.1
 -  image_picker: ^0.6.4
 -  multi_image_picker: ^4.8.0
--  open_file: ^3.0.3
 -  path_provider: ^2.0.2
 -  pdf:
 -  permission_handler: ^8.0.1

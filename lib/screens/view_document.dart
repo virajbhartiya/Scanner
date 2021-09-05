@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_scanner_cropper/flutter_scanner_cropper.dart';
-import 'package:open_file/open_file.dart';
 import 'package:scan/Utilities/Classes.dart';
 import 'package:scan/Utilities/constants.dart';
 import 'package:scan/Utilities/database_helper.dart';
