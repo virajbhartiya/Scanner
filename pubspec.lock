@@ -125,6 +125,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
+  flutter_full_pdf_viewer:
+    dependency: "direct dev"
+    description:
+      name: flutter_full_pdf_viewer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -242,13 +249,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.8.01"
-  open_file:
-    dependency: "direct main"
-    description:
-      name: open_file
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.2.1"
   path:
     dependency: transitive
     description:

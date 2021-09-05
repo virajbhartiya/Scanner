@@ -12,10 +12,11 @@ environment:
 
 dependencies:
   cupertino_icons: ^0.1.3
-  file_picker: 
+  file_picker: null
   flutter:
     sdk: flutter
   flutter_absolute_path: ^1.0.6
+  flutter_launcher_icons: null
   flutter_scanner_cropper:
     git:
       url: https://github.com/Ethereal-Developers-Inc/flutter-scanner-plugin.git
@@ -24,9 +25,9 @@ dependencies:
   focused_menu: ^1.0.1
   image_picker: ^0.6.4
   multi_image_picker: ^4.8.0
-  open_file: ^3.0.3
   path_provider: ^2.0.2
   pdf: null
+  pdf_merger: ^0.0.6
   permission_handler: ^8.0.1
   quick_actions: ^0.6.0+2
   reorderables: ^0.3.2
@@ -34,10 +35,9 @@ dependencies:
   shared_preferences: ^0.5.7+3
   simple_animated_icon: ^1.0.0
   sqflite: ^1.3.1+2
-  pdf_merger: ^0.0.6
-  flutter_launcher_icons:
 
 dev_dependencies:
+  flutter_full_pdf_viewer:
   flutter_test:
     sdk: flutter
   google_fonts: null
