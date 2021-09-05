@@ -4,8 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:open_file/open_file.dart';
 import 'package:pdf_merger/pdf_merger.dart';
+import 'pdf_viewer_screen.dart';
 
 class MergeScreen extends StatefulWidget {
   const MergeScreen({Key key}) : super(key: key);
@@ -25,9 +25,11 @@ class _MergeScreenState extends State<MergeScreen> {
 
     if (response.status == "success") {
       debugPrint('response--- ' + response.response);
-      OpenFile.open(response.response);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => PDFViewerScreen(response.response)));
       setState(() {
         _files = [];
+        filePaths = [];
       });
     }
   }
@@ -92,7 +94,8 @@ class _MergeScreenState extends State<MergeScreen> {
             itemCount: _files.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                onTap: () => OpenFile.open(_files[index].path),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => PDFViewerScreen(_files[index].path))),
                 leading: Icon(Icons.picture_as_pdf),
                 trailing: IconButton(
                   icon: Icon(Icons.delete, color: Colors.red),

@@ -12,6 +12,7 @@ import 'package:scan/Widgets/FAB.dart';
 import 'package:scan/Widgets/Image_Card.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reorderables/reorderables.dart';
+import 'package:scan/screens/pdf_viewer_screen.dart';
 import 'package:share_extend/share_extend.dart';
 
 bool enableSelect = false;
@@ -421,8 +422,11 @@ class _ViewDocumentState extends State<ViewDocument>
                                   );
                                   Directory storedDirectory =
                                       await getApplicationDocumentsDirectory();
-                                  await OpenFile.open(
-                                      '${storedDirectory.path}/$fileName.pdf');
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => PDFViewerScreen(
+                                          '${storedDirectory.path}/$fileName.pdf')));
+                                  // await OpenFile.open(
+                                  //     '${storedDirectory.path}/$fileName.pdf');
                                   setState(() {
                                     // debugPrint(_openResult);
                                   });
