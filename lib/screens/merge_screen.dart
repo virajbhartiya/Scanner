@@ -36,9 +36,9 @@ class _MergeScreenState extends State<MergeScreen> {
     DateTime now = DateTime.now();
 
     return (now.hour.toString() +
-        ":" +
+        "-" +
         now.minute.toString() +
-        ":" +
+        "-" +
         now.second.toString());
   }
 
@@ -92,22 +92,21 @@ class _MergeScreenState extends State<MergeScreen> {
             itemCount: _files.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                  onTap: () => OpenFile.open(_files[index].path),
-                  leading: Icon(Icons.picture_as_pdf),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      setState(() {
-                        _files.removeAt(index);
-                      });
-                    },
-                  ),
-                  subtitle: Text(formatBytes(_files[index].lengthSync())),
-                  title: Text(
-                    _files[index]
-                        .path
-                        .substring(_files[index].path.lastIndexOf('/') + 1),
-                  ));
+                onTap: () => OpenFile.open(_files[index].path),
+                leading: Icon(Icons.picture_as_pdf),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    setState(() {
+                      _files.removeAt(index);
+                    });
+                  },
+                ),
+                subtitle: Text(formatBytes(_files[index].lengthSync())),
+                title: Text(
+                  _files[index].path.split('/').last,
+                ),
+              );
             },
           ),
         ),

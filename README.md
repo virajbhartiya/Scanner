@@ -28,6 +28,7 @@
 -  google_fonts:
 -  file_picker: 
 -  pdf_merger: ^0.0.6
+-  flutter_launcher_icons:
 # RUN INSTRUCTIONS
 
 ```cmd
