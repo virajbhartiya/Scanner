@@ -25,7 +25,6 @@ class _MergeScreenState extends State<MergeScreen> {
         outputDirPath: '/storage/emulated/0/scan/PDF/' + time() + '.pdf');
 
     if (response.status == "success") {
-      debugPrint('response--- ' + response.response);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => PDFViewerScreen(response.response)));
       setState(() {
@@ -56,7 +55,6 @@ class _MergeScreenState extends State<MergeScreen> {
     setState(() {
       _files.length > 1 ? canMerge = true : canMerge = false;
     });
-    debugPrint('file path---' + filePaths.toString());
   }
 
   static String formatBytes(int bytes, {int decimals = 0}) {

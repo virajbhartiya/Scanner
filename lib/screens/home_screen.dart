@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Future<List<DirectoryOS>> getMasterData() async {
     masterDirectories = [];
     masterData = await database.getMasterData();
-    // debugPrint('Master Table => $masterData');
     for (var directory in masterData) {
       var flag = false;
       for (var dir in masterDirectories) {

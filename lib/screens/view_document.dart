@@ -66,8 +66,6 @@ class _ViewDocumentState extends State<ViewDocument>
     selectedImageIndex = [];
     int index = 1;
     directoryData = await database.getDirectoryData(widget.directoryOS.dirName);
-    // debugPrint(
-    //     'Directory table[${widget.directoryOS.dirName}] => $directoryData');
     for (var image in directoryData) {
       /// Updating first image path after delete
       if (updateFirstImage) {
@@ -129,7 +127,6 @@ class _ViewDocumentState extends State<ViewDocument>
     fileName = dirPath.substring(dirPath.lastIndexOf("/") + 1);
     widget.directoryOS.dirPath = dirPath;
     widget.directoryOS.dirName = fileName;
-    // debugPrint('New Directory => ${widget.directoryOS.dirName}');
   }
 
   Future<dynamic> createImage({
@@ -246,7 +243,6 @@ class _ViewDocumentState extends State<ViewDocument>
     bool isFirstImage = false;
     for (var i = 0; i < directoryImages.length; i++) {
       if (selectedImageIndex[i]) {
-        // debugPrint('${directoryImages[i].idx}: ${directoryImages[i].imgPath}');
         if (directoryImages[i].imgPath == widget.directoryOS.firstImgPath) {
           isFirstImage = true;
         }
@@ -377,7 +373,6 @@ class _ViewDocumentState extends State<ViewDocument>
                                 image: directoryImages[i - 1],
                                 tableName: widget.directoryOS.dirName,
                               );
-                              // debugPrint('$i: ${directoryImages[i - 1].imgPath}');
                             }
                             setState(() {
                               enableReorder = false;
@@ -424,11 +419,7 @@ class _ViewDocumentState extends State<ViewDocument>
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => PDFViewerScreen(
                                           '${storedDirectory.path}/$fileName.pdf')));
-                                  // await OpenFile.open(
-                                  //     '${storedDirectory.path}/$fileName.pdf');
-                                  setState(() {
-                                    // debugPrint(_openResult);
-                                  });
+                                  setState(() {});
                                 },
                               ),
                         (enableSelect)
@@ -578,14 +569,6 @@ class _ViewDocumentState extends State<ViewDocument>
                             directoryImages.insert(newIndex, image1);
                             setState(() {});
                           },
-                          onNoReorder: (int index) {
-                            // debugPrint(
-                            //     '${DateTime.now().toString().substring(5, 22)} reorder cancelled. index:$index');
-                          },
-                          onReorderStarted: (int index) {
-                            // debugPrint(
-                            //     '${DateTime.now().toString().substring(5, 22)} reorder started: index:$index');
-                          },
                         ),
                       ],
                     ),
@@ -657,7 +640,6 @@ class _ViewDocumentState extends State<ViewDocument>
         selectedCount += (i) ? 1 : 0;
       }
       selectedFileName = fileName + ' $selectedCount';
-      // debugPrint(selectedFileName);
     }
 
     return Container(
@@ -836,8 +818,6 @@ class _ViewDocumentState extends State<ViewDocument>
                                       TextButton(
                                         onPressed: () {
                                           imageQuality = imageQualityTemp;
-                                          debugPrint(
-                                              'Selected Image Quality: $imageQuality');
                                           Navigator.pop(context);
                                           showModalBottomSheet(
                                             context: context,
