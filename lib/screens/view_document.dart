@@ -416,7 +416,7 @@ class _ViewDocumentState extends State<ViewDocument>
                                   );
                                   Directory storedDirectory =
                                       await getApplicationDocumentsDirectory();
-                                  Navigator.of(context).push(MaterialPageRoute(
+                                  Navigator.of(context).push(CupertinoPageRoute(
                                       builder: (context) => PDFViewerScreen(
                                           '${storedDirectory.path}/$fileName.pdf')));
                                   setState(() {});

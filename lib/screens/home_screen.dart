@@ -84,10 +84,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     // Quick Action related
     quickActions.initialize((String shortcutType) {
       switch (shortcutType) {
-        case 'Normal Scan':
+        case 'Single Page':
           Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
               builder: (context) => ViewDocument(
                 quickScan: false,
                 directoryOS: DirectoryOS(),
@@ -97,10 +97,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             homeRefresh();
           });
           break;
-        case 'Quick Scan':
+        case 'Multi Page':
           Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
               builder: (context) => ViewDocument(
                 quickScan: true,
                 directoryOS: DirectoryOS(),
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         case 'Import from Gallery':
           Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
               builder: (context) => ViewDocument(
                 quickScan: false,
                 directoryOS: DirectoryOS(),
@@ -128,13 +128,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
     quickActions.setShortcutItems(<ShortcutItem>[
       ShortcutItem(
-        type: 'Normal Scan',
-        localizedTitle: 'Normal Scan',
+        type: 'Single Page',
+        localizedTitle: 'Single Page',
         icon: 'scan',
       ),
       ShortcutItem(
-        type: 'Quick Scan',
-        localizedTitle: 'Quick Scan',
+        type: 'Multi Page',
+        localizedTitle: 'Multi Page',
         icon: 'scan',
       ),
       ShortcutItem(
@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 color: Colors.white,
                 icon: Icon(Icons.merge_type_outlined),
                 onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MergeScreen())),
+                    CupertinoPageRoute(builder: (context) => MergeScreen())),
               ),
             ),
             SizedBox(
@@ -198,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => ViewDocument(
                                     directoryOS: masterDirectories[index],
                                   ),
@@ -282,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               onTap: () async {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
+                                  CupertinoPageRoute(
                                     builder: (context) => ViewDocument(
                                       directoryOS: masterDirectories[index],
                                     ),
@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           singlePageScanOnPresed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
+              CupertinoPageRoute(
                 builder: (context) => ViewDocument(
                   quickScan: false,
                   directoryOS: DirectoryOS(),
@@ -319,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           multiPageScanOnPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
+              CupertinoPageRoute(
                 builder: (context) => ViewDocument(
                   quickScan: true,
                   directoryOS: DirectoryOS(),
@@ -332,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           galleryOnPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
+              CupertinoPageRoute(
                 builder: (context) => ViewDocument(
                   quickScan: false,
                   directoryOS: DirectoryOS(),

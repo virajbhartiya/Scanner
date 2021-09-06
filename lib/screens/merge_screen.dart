@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
@@ -25,7 +26,7 @@ class _MergeScreenState extends State<MergeScreen> {
         outputDirPath: '/storage/emulated/0/scan/PDF/' + time() + '.pdf');
 
     if (response.status == "success") {
-      Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).push(CupertinoPageRoute(
           builder: (context) => PDFViewerScreen(response.response)));
       setState(() {
         _files = [];
@@ -111,7 +112,7 @@ class _MergeScreenState extends State<MergeScreen> {
             itemCount: _files.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                onTap: () => Navigator.of(context).push(CupertinoPageRoute(
                     builder: (context) => PDFViewerScreen(_files[index].path))),
                 leading: Icon(Icons.picture_as_pdf),
                 trailing: IconButton(
