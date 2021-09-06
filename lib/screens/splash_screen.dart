@@ -39,9 +39,9 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Text("Scan",
                 style: GoogleFonts.quicksand(
-                    color: Theme.of(context).accentColor,
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold)),
+                  color: Theme.of(context).accentColor,
+                  fontSize: 50,
+                )),
             Spacer(
               flex: 10,
             ),
