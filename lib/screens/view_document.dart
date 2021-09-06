@@ -12,6 +12,7 @@ import 'package:scan/Widgets/Image_Card.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:scan/screens/pdf_viewer_screen.dart';
+import 'package:scan/screens/photo_view_screen.dart';
 import 'package:share_extend/share_extend.dart';
 
 bool enableSelect = false;
@@ -551,6 +552,7 @@ class _ViewDocumentState extends State<ViewDocument>
                             return ImageCard(
                               imageOS: image,
                               directoryOS: widget.directoryOS,
+                              directoryImages: directoryImages,
                               fileEditCallback: () {
                                 fileEditCallback(imageOS: image);
                               },
@@ -590,35 +592,36 @@ class _ViewDocumentState extends State<ViewDocument>
             (showImage)
                 ? GestureDetector(
                     onTap: () {
-                      setState(() {
-                        showImage = false;
-                      });
+                      print('pressed view doc');
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => PhotoViewScreen(directoryImages,
+                              directoryImages.indexOf(displayImage))));
+                      // setState(() {
+                      //   showImage = false;
+                      // });
                     },
                     child: Container(
                       width: size.width,
                       height: size.height,
                       color: Colors.blue,
                       child: GestureDetector(
-                        onDoubleTapDown: (details) {
-                          _doubleTapDetails = details;
-                        },
                         onDoubleTap: () {
-                          if (_controller.value != Matrix4.identity()) {
-                            _controller.value = Matrix4.identity();
-                          } else {
-                            final position = _doubleTapDetails.localPosition;
-                            _controller.value = Matrix4.identity()
-                              ..translate(-position.dx, -position.dy)
-                              ..scale(2.0);
-                          }
+                          Navigator.of(context).push(CupertinoPageRoute(
+                              builder: (context) => PhotoViewScreen(
+                                  directoryImages,
+                                  directoryImages.indexOf(displayImage))));
+                          // if (_controller.value != Matrix4.identity()) {
+                          //   _controller.value = Matrix4.identity();
+                          // } else {
+                          //   final position = _doubleTapDetails.localPosition;
+                          //   _controller.value = Matrix4.identity()
+                          //     ..translate(-position.dx, -position.dy)
+                          //     ..scale(2.0);
+                          // }
                         },
-                        child: InteractiveViewer(
-                          transformationController: _controller,
-                          maxScale: 10,
-                          child: Image.file(
-                            File(displayImage.imgPath),
-                            fit: BoxFit.fill,
-                          ),
+                        child: Image.file(
+                          File(displayImage.imgPath),
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),

@@ -8,6 +8,7 @@ import 'package:focused_menu/modals.dart';
 import 'package:scan/Utilities/Classes.dart';
 import 'package:scan/Utilities/database_helper.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:scan/screens/photo_view_screen.dart';
 
 import '../Utilities/constants.dart';
 import '../screens/view_document.dart';
@@ -18,14 +19,15 @@ class ImageCard extends StatefulWidget {
   final ImageOS imageOS;
   final Function selectCallback;
   final Function imageViewerCallback;
+  final List<ImageOS> directoryImages;
 
-  const ImageCard({
-    this.fileEditCallback,
-    this.directoryOS,
-    this.imageOS,
-    this.selectCallback,
-    this.imageViewerCallback,
-  });
+  const ImageCard(
+      {this.fileEditCallback,
+      this.directoryOS,
+      this.imageOS,
+      this.selectCallback,
+      this.imageViewerCallback,
+      this.directoryImages});
 
   @override
   _ImageCardState createState() => _ImageCardState();
@@ -52,14 +54,20 @@ class _ImageCardState extends State<ImageCard> {
           onPressed: () {
             (enableSelect)
                 ? selectionOnPressed()
-                : widget.imageViewerCallback();
+                : Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (context) => PhotoViewScreen(
+                        widget.directoryImages,
+                        widget.directoryImages.indexOf(widget.imageOS))));
           },
           child: FocusedMenuHolder(
             menuWidth: size.width * 0.45,
             onPressed: () {
               (enableSelect)
                   ? selectionOnPressed()
-                  : widget.imageViewerCallback();
+                  : Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (context) => PhotoViewScreen(
+                          widget.directoryImages,
+                          widget.directoryImages.indexOf(widget.imageOS))));
             },
             menuItems: [
               FocusedMenuItem(
