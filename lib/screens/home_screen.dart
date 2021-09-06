@@ -268,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
         ),
         floatingActionButton: FAB(
-          normalScanOnPressed: () {
+          singlePageScanOnPresed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -281,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               homeRefresh();
             });
           },
-          quickScanOnPressed: () {
+          multiPageScanOnPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(

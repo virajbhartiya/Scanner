@@ -17,6 +17,7 @@ class MergeScreen extends StatefulWidget {
 class _MergeScreenState extends State<MergeScreen> {
   List<File> _files = [];
   List<String> filePaths = [];
+  bool canMerge = false;
 
   mergeFiles() async {
     MergeMultiplePDFResponse response = await PdfMerger.mergeMultiplePDF(
@@ -52,6 +53,9 @@ class _MergeScreenState extends State<MergeScreen> {
       });
     });
     filePaths = _files.map((file) => file.path).toList();
+    setState(() {
+      _files.length > 1 ? canMerge = true : canMerge = false;
+    });
     debugPrint('file path---' + filePaths.toString());
   }
 
@@ -78,7 +82,22 @@ class _MergeScreenState extends State<MergeScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          TextButton(onPressed: () => mergeFiles(), child: Text('Merge'))
+          Container(
+            decoration: BoxDecoration(
+              color: canMerge ? Theme.of(context).accentColor : Colors.grey,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              onPressed: () => canMerge ? mergeFiles() : null,
+              icon: Icon(
+                Icons.merge_type,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.01,
+          ),
         ],
         title: Text(
           'Merge',

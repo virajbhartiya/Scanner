@@ -3,16 +3,16 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:simple_animated_icon/simple_animated_icon.dart';
 
 class FAB extends StatefulWidget {
-  final Function normalScanOnPressed;
-  final Function quickScanOnPressed;
+  final Function singlePageScanOnPresed;
+  final Function multiPageScanOnPressed;
   final Function galleryOnPressed;
   final Function dialOpen;
   final Function dialClose;
 
   const FAB({
     Key key,
-    this.normalScanOnPressed,
-    this.quickScanOnPressed,
+    this.singlePageScanOnPresed,
+    this.multiPageScanOnPressed,
     this.galleryOnPressed,
     this.dialOpen,
     this.dialClose,
@@ -71,17 +71,17 @@ class _FABState extends State<FAB> with TickerProviderStateMixin {
           elevation: 0,
           child: Icon(Icons.camera_alt),
           backgroundColor: Theme.of(context).accentColor,
-          label: 'Normal Scan',
+          label: 'Single Page',
           labelStyle: TextStyle(fontSize: 18.0, color: Colors.black),
-          onTap: widget.normalScanOnPressed,
+          onTap: widget.singlePageScanOnPresed,
         ),
         SpeedDialChild(
           elevation: 0,
           child: Icon(Icons.timelapse),
           backgroundColor: Theme.of(context).accentColor,
-          label: 'Quick Scan',
+          label: 'Multi Page',
           labelStyle: TextStyle(fontSize: 18.0, color: Colors.black),
-          onTap: widget.quickScanOnPressed,
+          onTap: widget.multiPageScanOnPressed,
         ),
         SpeedDialChild(
           elevation: 0,

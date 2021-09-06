@@ -106,8 +106,8 @@ class _ImageCardState extends State<ImageCard> {
                 ),
               ),
               FocusedMenuItem(
-                title: Text('Delete'),
-                trailingIcon: Icon(Icons.delete),
+                title: Text('Delete', style: TextStyle(color: Colors.red)),
+                trailingIcon: Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -149,7 +149,7 @@ class _ImageCardState extends State<ImageCard> {
                             },
                             child: Text(
                               'Delete',
-                              style: TextStyle(color: Colors.redAccent),
+                              style: TextStyle(color: Colors.red),
                             ),
                           ),
                         ],
@@ -157,7 +157,7 @@ class _ImageCardState extends State<ImageCard> {
                     },
                   );
                 },
-                backgroundColor: Colors.redAccent,
+                backgroundColor: Colors.white,
               ),
             ],
             child: Container(

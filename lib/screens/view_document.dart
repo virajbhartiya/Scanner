@@ -593,10 +593,10 @@ class _ViewDocumentState extends State<ViewDocument>
                 ),
               ),
               floatingActionButton: FAB(
-                normalScanOnPressed: () {
+                singlePageScanOnPresed: () {
                   createImage(quickScan: false);
                 },
-                quickScanOnPressed: () {
+                multiPageScanOnPressed: () {
                   createImage(quickScan: true);
                 },
                 galleryOnPressed: () {
