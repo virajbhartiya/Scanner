@@ -20,12 +20,12 @@ class DirectoryOS {
 
 class ImageOS {
   int idx;
-  String imgPath;
+  String imagePath;
   int shouldCompress;
 
   ImageOS({
     this.idx,
-    this.imgPath,
+    this.imagePath,
     this.shouldCompress,
   });
 }

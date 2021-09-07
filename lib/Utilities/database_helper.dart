@@ -76,7 +76,7 @@ class DatabaseHelper {
     getDirectoryTableName(tableName);
     int index = await db.insert(_dirTableName, {
       'idx': image.idx,
-      'img_path': image.imgPath,
+      'img_path': image.imagePath,
       // 'shouldCompress': image.shouldCompress,
     });
     print('Image Index: $index');
@@ -153,7 +153,7 @@ class DatabaseHelper {
     return await db.update(
         _dirTableName,
         {
-          'img_path': image.imgPath,
+          'img_path': image.imagePath,
         },
         where: 'idx == ?',
         whereArgs: [image.idx]);
@@ -168,7 +168,7 @@ class DatabaseHelper {
           'idx': image.idx,
         },
         where: 'img_path == ?',
-        whereArgs: [image.imgPath]);
+        whereArgs: [image.imagePath]);
   }
 
   // Future<int> updateShouldCompress({ImageOS image, String tableName}) async {
