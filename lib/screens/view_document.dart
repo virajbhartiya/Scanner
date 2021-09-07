@@ -532,8 +532,8 @@ class _ViewDocumentState extends State<ViewDocument>
                       ],
               ),
               body: RefreshIndicator(
-                backgroundColor: primaryColor,
-                color: secondaryColor,
+                backgroundColor: Theme.of(context).primaryColor,
+                color: Theme.of(context).accentColor,
                 onRefresh: () async {
                   getDirectoryData();
                 },

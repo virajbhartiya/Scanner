@@ -6,8 +6,7 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:scan/Utilities/Classes.dart';
 import 'package:scan/Utilities/database_helper.dart';
-import 'package:scan/screens/photo_view_screen.dart';
-
+import 'package:scan/screens/gallery_screen.dart';
 import '../Utilities/constants.dart';
 import '../screens/view_document.dart';
 
@@ -56,7 +55,7 @@ class _ImageCardState extends State<ImageCard> {
                 ? selectionOnPressed()
                 : Navigator.of(context).push(
                     CupertinoPageRoute(
-                      builder: (context) => PhotoViewScreen(
+                      builder: (context) => GalleryScreen(
                         directoryImages: widget.directoryImages,
                         index: widget.directoryImages.indexOf(widget.imageOS),
                         dirName: widget.dirName,
@@ -74,7 +73,7 @@ class _ImageCardState extends State<ImageCard> {
                   ? selectionOnPressed()
                   : Navigator.of(context).push(
                       CupertinoPageRoute(
-                        builder: (context) => PhotoViewScreen(
+                        builder: (context) => GalleryScreen(
                           directoryImages: widget.directoryImages,
                           index: widget.directoryImages.indexOf(widget.imageOS),
                           dirName: widget.dirName,
