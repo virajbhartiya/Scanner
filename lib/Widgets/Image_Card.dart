@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_scanner_cropper/flutter_scanner_cropper.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:scan/Utilities/Classes.dart';
 import 'package:scan/Utilities/database_helper.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:scan/screens/photo_view_screen.dart';
 
 import '../Utilities/constants.dart';
 import '../screens/view_document.dart';
@@ -18,14 +17,17 @@ class ImageCard extends StatefulWidget {
   final ImageOS imageOS;
   final Function selectCallback;
   final Function imageViewerCallback;
+  final List<ImageOS> directoryImages;
+  final String dirName;
 
-  const ImageCard({
-    this.fileEditCallback,
-    this.directoryOS,
-    this.imageOS,
-    this.selectCallback,
-    this.imageViewerCallback,
-  });
+  const ImageCard(
+      {this.fileEditCallback,
+      this.directoryOS,
+      this.imageOS,
+      this.selectCallback,
+      this.imageViewerCallback,
+      this.directoryImages,
+      this.dirName});
 
   @override
   _ImageCardState createState() => _ImageCardState();
@@ -50,61 +52,34 @@ class _ImageCardState extends State<ImageCard> {
           elevation: 0,
           color: Theme.of(context).primaryColor,
           onPressed: () {
+            print('MaterialButton');
             (enableSelect)
                 ? selectionOnPressed()
-                : widget.imageViewerCallback();
+                : Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (context) => PhotoViewScreen(
+                        widget.directoryImages,
+                        widget.directoryImages.indexOf(widget.imageOS),
+                        widget.dirName,
+                        widget.fileEditCallback,
+                        widget.directoryOS,
+                        widget.selectCallback)));
           },
           child: FocusedMenuHolder(
-            menuWidth: size.width * 0.45,
+            menuWidth: size.width * 0.25,
             onPressed: () {
+              print('FocusedMenuHolder');
               (enableSelect)
                   ? selectionOnPressed()
-                  : widget.imageViewerCallback();
+                  : Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (context) => PhotoViewScreen(
+                          widget.directoryImages,
+                          widget.directoryImages.indexOf(widget.imageOS),
+                          widget.dirName,
+                          widget.fileEditCallback,
+                          widget.directoryOS,
+                          widget.selectCallback)));
             },
             menuItems: [
-              FocusedMenuItem(
-                title: Text(
-                  'Crop',
-                  style: TextStyle(color: Colors.black),
-                ),
-                onPressed: () async {
-                  Directory cacheDir = await getTemporaryDirectory();
-                  String imageFilePath = await FlutterScannerCropper.openCrop(
-                    src: widget.imageOS.imgPath,
-                    dest: cacheDir.path,
-                  );
-                  File image = File(imageFilePath);
-                  File temp = File(widget.imageOS.imgPath.substring(
-                          0, widget.imageOS.imgPath.lastIndexOf(".")) +
-                      "c.jpg");
-                  File(widget.imageOS.imgPath).deleteSync();
-                  if (image != null) {
-                    image.copySync(temp.path);
-                  }
-                  widget.imageOS.imgPath = temp.path;
-                  database.updateImagePath(
-                    tableName: widget.directoryOS.dirName,
-                    image: widget.imageOS,
-                  );
-                  if (widget.imageOS.idx == 1) {
-                    database.updateFirstImagePath(
-                      imagePath: widget.imageOS.imgPath,
-                      dirPath: widget.directoryOS.dirPath,
-                    );
-                  }
-                  // if (widget.imageOS.shouldCompress == 1) {
-                  //   database.updateShouldCompress(
-                  //     image: widget.imageOS,
-                  //     tableName: widget.directoryOS.dirName,
-                  //   );
-                  // }
-                  widget.fileEditCallback();
-                },
-                trailingIcon: Icon(
-                  Icons.crop,
-                  color: Colors.black,
-                ),
-              ),
               FocusedMenuItem(
                 title: Text('Delete', style: TextStyle(color: Colors.red)),
                 trailingIcon: Icon(Icons.delete, color: Colors.red),
@@ -127,9 +102,9 @@ class _ImageCardState extends State<ImageCard> {
                           ),
                           TextButton(
                             onPressed: () {
-                              File(widget.imageOS.imgPath).deleteSync();
+                              File(widget.imageOS.imagePath).deleteSync();
                               database.deleteImage(
-                                imgPath: widget.imageOS.imgPath,
+                                imgPath: widget.imageOS.imagePath,
                                 tableName: widget.directoryOS.dirName,
                               );
                               database.updateImageCount(
@@ -160,11 +135,12 @@ class _ImageCardState extends State<ImageCard> {
                 backgroundColor: Colors.white,
               ),
             ],
-            child: Container(
-              child:
-                  Image.file(File(widget.imageOS.imgPath), fit: BoxFit.cover),
-              height: size.height * 0.25,
-              width: size.width * 0.395,
+            child: Hero(
+              tag: widget.imageOS.imagePath,
+              child: Image.file(File(widget.imageOS.imagePath),
+                  height: size.height * 0.25,
+                  width: size.width * 0.395,
+                  fit: BoxFit.cover),
             ),
           ),
         ),

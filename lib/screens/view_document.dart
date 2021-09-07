@@ -81,7 +81,7 @@ class _ViewDocumentState extends State<ViewDocument>
         database.updateImageIndex(
           image: ImageOS(
             idx: i,
-            imgPath: image['img_path'],
+            imagePath: image['img_path'],
           ),
           tableName: widget.directoryOS.dirName,
         );
@@ -89,7 +89,7 @@ class _ViewDocumentState extends State<ViewDocument>
 
       ImageOS tempImageOS = ImageOS(
         idx: i,
-        imgPath: image['img_path'],
+        imagePath: image['img_path'],
       );
       directoryImages.add(
         tempImageOS,
@@ -100,6 +100,7 @@ class _ViewDocumentState extends State<ViewDocument>
 
       imageCards.add(
         ImageCard(
+          dirName: widget.directoryOS.dirName,
           imageOS: tempImageOS,
           directoryOS: widget.directoryOS,
           fileEditCallback: () {
@@ -195,7 +196,7 @@ class _ViewDocumentState extends State<ViewDocument>
 
   void fileEditCallback({ImageOS imageOS}) {
     bool isFirstImage = false;
-    if (imageOS.imgPath == widget.directoryOS.firstImgPath) {
+    if (imageOS.imagePath == widget.directoryOS.firstImgPath) {
       isFirstImage = true;
     }
     getDirectoryData(
@@ -243,13 +244,13 @@ class _ViewDocumentState extends State<ViewDocument>
     bool isFirstImage = false;
     for (var i = 0; i < directoryImages.length; i++) {
       if (selectedImageIndex[i]) {
-        if (directoryImages[i].imgPath == widget.directoryOS.firstImgPath) {
+        if (directoryImages[i].imagePath == widget.directoryOS.firstImgPath) {
           isFirstImage = true;
         }
 
-        File(directoryImages[i].imgPath).deleteSync();
+        File(directoryImages[i].imagePath).deleteSync();
         database.deleteImage(
-          imgPath: directoryImages[i].imgPath,
+          imgPath: directoryImages[i].imagePath,
           tableName: widget.directoryOS.dirName,
         );
       }
@@ -364,10 +365,10 @@ class _ViewDocumentState extends State<ViewDocument>
                               if (i == 1) {
                                 database.updateFirstImagePath(
                                   dirPath: widget.directoryOS.dirPath,
-                                  imagePath: directoryImages[i - 1].imgPath,
+                                  imagePath: directoryImages[i - 1].imagePath,
                                 );
                                 widget.directoryOS.firstImgPath =
-                                    directoryImages[i - 1].imgPath;
+                                    directoryImages[i - 1].imagePath;
                               }
                               database.updateImagePath(
                                 image: directoryImages[i - 1],
@@ -549,8 +550,10 @@ class _ViewDocumentState extends State<ViewDocument>
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: directoryImages.map((image) {
                             return ImageCard(
+                              dirName: fileName,
                               imageOS: image,
                               directoryOS: widget.directoryOS,
+                              directoryImages: directoryImages,
                               fileEditCallback: () {
                                 fileEditCallback(imageOS: image);
                               },
@@ -588,38 +591,24 @@ class _ViewDocumentState extends State<ViewDocument>
               ),
             ),
             (showImage)
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        showImage = false;
-                      });
-                    },
-                    child: Container(
-                      width: size.width,
-                      height: size.height,
-                      color: Colors.blue,
-                      child: GestureDetector(
-                        onDoubleTapDown: (details) {
-                          _doubleTapDetails = details;
-                        },
-                        onDoubleTap: () {
-                          if (_controller.value != Matrix4.identity()) {
-                            _controller.value = Matrix4.identity();
-                          } else {
-                            final position = _doubleTapDetails.localPosition;
-                            _controller.value = Matrix4.identity()
-                              ..translate(-position.dx, -position.dy)
-                              ..scale(2.0);
-                          }
-                        },
-                        child: InteractiveViewer(
-                          transformationController: _controller,
-                          maxScale: 10,
-                          child: Image.file(
-                            File(displayImage.imgPath),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                ? Container(
+                    width: size.width,
+                    height: size.height,
+                    color: Colors.blue,
+                    child: GestureDetector(
+                      onDoubleTap: () {
+                        if (_controller.value != Matrix4.identity()) {
+                          _controller.value = Matrix4.identity();
+                        } else {
+                          final position = _doubleTapDetails.localPosition;
+                          _controller.value = Matrix4.identity()
+                            ..translate(-position.dx, -position.dy)
+                            ..scale(2.0);
+                        }
+                      },
+                      child: Image.file(
+                        File(displayImage.imagePath),
+                        fit: BoxFit.fill,
                       ),
                     ),
                   )
@@ -973,7 +962,7 @@ class _ViewDocumentState extends State<ViewDocument>
               List<String> selectedImagesPath = [];
               for (var image in directoryImages) {
                 if (selectedImageIndex.elementAt(image.idx - 1)) {
-                  selectedImagesPath.add(image.imgPath);
+                  selectedImagesPath.add(image.imagePath);
                 }
               }
               ShareExtend.shareMultiple(

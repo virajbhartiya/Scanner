@@ -128,7 +128,7 @@ class FileOperations {
     image.copy(tempPic.path);
     database.createImage(
       image: ImageOS(
-        imgPath: tempPic.path,
+        imagePath: tempPic.path,
         idx: index,
       ),
       tableName: dirPath.substring(dirPath.lastIndexOf('/') + 1),
@@ -198,7 +198,7 @@ class FileOperations {
     Directory cacheDir = await getTemporaryDirectory();
     for (ImageOS image in images) {
       path = await FlutterScannerCropper.compressImage(
-        src: image.imgPath,
+        src: image.imagePath,
         dest: cacheDir.path,
         desiredQuality: desiredQuality,
       );
@@ -225,7 +225,7 @@ class FileOperations {
     if (images.runtimeType == foo.runtimeType) {
       var tempImages = [];
       for (ImageOS image in images) {
-        tempImages.add(File(image.imgPath));
+        tempImages.add(File(image.imagePath));
       }
       images = tempImages;
     }
