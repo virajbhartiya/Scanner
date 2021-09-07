@@ -7,7 +7,7 @@
 - PDF Viewer
 
 ## PACKAGES USED
-
+```yaml
 -  cupertino_icons: ^0.1.3
 - file_picker: null
 -  flutter:
@@ -35,7 +35,7 @@
 -  shared_preferences: ^0.5.7+3
 -  simple_animated_icon: ^1.0.0
 -  sqflite: ^1.3.1+2
-
+```
 # RUN INSTRUCTIONS
 
 ```cmd
