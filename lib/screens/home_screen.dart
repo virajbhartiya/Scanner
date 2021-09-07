@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Future homeRefresh() async {
     await getMasterData();
-    setState(() {});
   }
 
   void getData() {
@@ -154,9 +153,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           title: Text(
             'Scan',
             style: GoogleFonts.quicksand(
-                fontSize: 35,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).accentColor),
+                fontSize: 35, color: Theme.of(context).accentColor),
           ),
           actions: [
             Container(

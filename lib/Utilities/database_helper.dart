@@ -79,7 +79,6 @@ class DatabaseHelper {
       'img_path': image.imagePath,
       // 'shouldCompress': image.shouldCompress,
     });
-    print('Image Index: $index');
 
     await db.update(
         _masterTableName,

@@ -7,14 +7,21 @@ import 'package:scan/Utilities/Classes.dart';
 import 'package:scan/Utilities/database_helper.dart';
 
 class PhotoViewScreen extends StatefulWidget {
-  final List<ImageOS> galleryItems;
+  final List<ImageOS> directoryImages;
   final int index;
   final String dirName;
   final Function fileEditCallback;
   final DirectoryOS directoryOS;
   final Function selectCallback;
-  const PhotoViewScreen(this.galleryItems, this.index, this.dirName,
-      this.fileEditCallback, this.directoryOS, this.selectCallback);
+
+  const PhotoViewScreen({
+    this.directoryImages,
+    this.index,
+    this.dirName,
+    this.fileEditCallback,
+    this.directoryOS,
+    this.selectCallback,
+  });
 
   @override
   _PhotoViewScreenState createState() => _PhotoViewScreenState();
@@ -40,28 +47,28 @@ class _PhotoViewScreenState extends State<PhotoViewScreen> {
             onPressed: () async {
               Directory cacheDir = await getTemporaryDirectory();
               String imageFilePath = await FlutterScannerCropper.openCrop(
-                src: widget.galleryItems[currentIndex].imagePath,
+                src: widget.directoryImages[currentIndex].imagePath,
                 dest: cacheDir.path,
               );
               File image = File(imageFilePath);
-              File temp = File(widget.galleryItems[currentIndex].imagePath
+              File temp = File(widget.directoryImages[currentIndex].imagePath
                       .substring(
                           0,
-                          widget.galleryItems[currentIndex].imagePath
+                          widget.directoryImages[currentIndex].imagePath
                               .lastIndexOf(".")) +
                   "c.jpg");
-              File(widget.galleryItems[currentIndex].imagePath).deleteSync();
+              File(widget.directoryImages[currentIndex].imagePath).deleteSync();
               if (image != null) {
                 image.copySync(temp.path);
               }
-              widget.galleryItems[currentIndex].imagePath = temp.path;
+              widget.directoryImages[currentIndex].imagePath = temp.path;
               database.updateImagePath(
                 tableName: widget.dirName,
-                image: widget.galleryItems[currentIndex],
+                image: widget.directoryImages[currentIndex],
               );
-              if (widget.galleryItems[currentIndex].idx == 1) {
+              if (widget.directoryImages[currentIndex].idx == 1) {
                 database.updateFirstImagePath(
-                  imagePath: widget.galleryItems[currentIndex].imagePath,
+                  imagePath: widget.directoryImages[currentIndex].imagePath,
                   dirPath: widget.directoryOS.dirPath,
                 );
               }
@@ -76,29 +83,28 @@ class _PhotoViewScreenState extends State<PhotoViewScreen> {
           onHorizontalDragUpdate: (details) {
             int sensitivity = 25;
             // Swiping in right direction.
-            if (details.delta.dx < sensitivity) if (currentIndex !=
-                widget.galleryItems.length - 1)
+            if (details.delta.dx < sensitivity &&
+                currentIndex != widget.directoryImages.length - 1)
               setState(() {
                 currentIndex = currentIndex + 1;
               });
 
             // Swiping in left direction.
-            if (details.delta.dx > -sensitivity) {
-              if (currentIndex != 0)
-                setState(() {
-                  currentIndex = currentIndex - 1;
-                });
-            }
-          },
-          onVerticalDragUpdate: (details) {
-            if (details.delta.dy > 8) Navigator.pop(context);
+            if (details.delta.dx > -sensitivity && currentIndex != 0)
+              setState(() {
+                currentIndex = currentIndex - 1;
+              });
           },
           child: Container(
             child: Hero(
-              tag: widget.galleryItems[currentIndex].imagePath,
-              child: Image.file(
-                File(widget.galleryItems[currentIndex].imagePath),
-                fit: BoxFit.contain,
+              tag: widget.directoryImages[currentIndex].imagePath,
+              child: InteractiveViewer(
+                minScale: 0.1,
+                maxScale: 5,
+                child: Image.file(
+                  File(widget.directoryImages[currentIndex].imagePath),
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),

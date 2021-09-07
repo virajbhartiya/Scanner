@@ -52,32 +52,38 @@ class _ImageCardState extends State<ImageCard> {
           elevation: 0,
           color: Theme.of(context).primaryColor,
           onPressed: () {
-            print('MaterialButton');
             (enableSelect)
                 ? selectionOnPressed()
-                : Navigator.of(context).push(CupertinoPageRoute(
-                    builder: (context) => PhotoViewScreen(
-                        widget.directoryImages,
-                        widget.directoryImages.indexOf(widget.imageOS),
-                        widget.dirName,
-                        widget.fileEditCallback,
-                        widget.directoryOS,
-                        widget.selectCallback)));
+                : Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (context) => PhotoViewScreen(
+                        directoryImages: widget.directoryImages,
+                        index: widget.directoryImages.indexOf(widget.imageOS),
+                        dirName: widget.dirName,
+                        fileEditCallback: widget.fileEditCallback,
+                        directoryOS: widget.directoryOS,
+                        selectCallback: widget.selectCallback,
+                      ),
+                    ),
+                  );
           },
           child: FocusedMenuHolder(
             menuWidth: size.width * 0.25,
             onPressed: () {
-              print('FocusedMenuHolder');
               (enableSelect)
                   ? selectionOnPressed()
-                  : Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (context) => PhotoViewScreen(
-                          widget.directoryImages,
-                          widget.directoryImages.indexOf(widget.imageOS),
-                          widget.dirName,
-                          widget.fileEditCallback,
-                          widget.directoryOS,
-                          widget.selectCallback)));
+                  : Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => PhotoViewScreen(
+                          directoryImages: widget.directoryImages,
+                          index: widget.directoryImages.indexOf(widget.imageOS),
+                          dirName: widget.dirName,
+                          fileEditCallback: widget.fileEditCallback,
+                          directoryOS: widget.directoryOS,
+                          selectCallback: widget.selectCallback,
+                        ),
+                      ),
+                    );
             },
             menuItems: [
               FocusedMenuItem(
