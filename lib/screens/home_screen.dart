@@ -70,7 +70,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         );
       }
     }
-    masterDirectories = masterDirectories.reversed.toList();
+    List<DirectoryOS> tempDir = masterDirectories.reversed.toList();
+    setState(() {
+      masterDirectories = tempDir;
+    });
     return masterDirectories;
   }
 
@@ -153,7 +156,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           title: Text(
             'Scan',
             style: GoogleFonts.quicksand(
-                fontSize: 35, color: Theme.of(context).accentColor),
+                fontWeight: FontWeight.w300,
+                fontSize: 35,
+                color: Theme.of(context).accentColor),
           ),
           actions: [
             Container(
@@ -206,42 +211,49 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             },
                             borderRadius: BorderRadius.circular(10.0),
                             child: ListTile(
-                              trailing: IconButton(
-                                icon: Icon(Icons.delete_outline,
-                                    color: Colors.red),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: Text('Delete Directory'),
-                                      content: Text(
-                                          'Are you sure you want to delete this directory?'),
-                                      actions: [
-                                        TextButton(
-                                          child: Text('Cancel'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                        TextButton(
-                                          child: Text('Delete',
-                                              style:
-                                                  TextStyle(color: Colors.red)),
-                                          onPressed: () {
-                                            DatabaseHelper.instance
-                                                .deleteDirectory(
-                                                    dirPath:
-                                                        masterDirectories[index]
-                                                            .dirPath);
-                                            homeRefresh();
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                              // trailing: IconButton(
+                              //   icon: Icon(Icons.delete_outline,
+                              //       color: Colors.red),
+                              //   onPressed: () {
+                              //     showDialog(
+                              //       context: context,
+                              //       builder: (context) => AlertDialog(
+                              //         title: Text('Delete Directory'),
+                              //         content: Text(
+                              //             'Are you sure you want to delete this directory?'),
+                              //         actions: [
+                              //           TextButton(
+                              //             child: Text('Cancel'),
+                              //             onPressed: () {
+                              //               Navigator.of(context).pop();
+                              //             },
+                              //           ),
+                              //           TextButton(
+                              //             child: Text('Delete',
+                              //                 style:
+                              //                     TextStyle(color: Colors.red)),
+                              //             onPressed: () {
+                              //               database.deleteDirectory(
+                              //                   dirPath:
+                              //                       masterDirectories[index]
+                              //                           .dirName);
+                              //               Navigator.of(context).pop();
+                              //               homeRefresh();
+                              //             },
+                              //             // DatabaseHelper.instance
+                              //             //     .deleteDirectory(
+                              //             //         dirPath:
+                              //             //             masterDirectories[index]
+                              //             //                 .dirPath);
+                              //             // Navigator.of(context).pop();
+                              //             // homeRefresh();
+                              //             // },
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     );
+                              //   },
+                              // ),
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image.file(

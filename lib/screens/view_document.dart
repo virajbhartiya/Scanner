@@ -475,7 +475,6 @@ class _ViewDocumentState extends State<ViewDocument>
                               )
                             : PopupMenuButton<String>(
                                 onSelected: handleClick,
-                                // color: primaryColor.withOpacity(0.95),
                                 elevation: 2,
                                 offset: Offset.fromDirection(20, 20),
                                 icon: Icon(Icons.more_vert),
