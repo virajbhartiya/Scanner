@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'merge_screen.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 class HomeScreen extends StatefulWidget {
   static String route = "HomeScreen";
@@ -23,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<Map<String, dynamic>> masterData;
   List<DirectoryOS> masterDirectories = [];
   QuickActions quickActions = QuickActions();
+  StreamSubscription _intentDataStreamSubscription;
+  List<SharedMediaFile> _sharedFiles;
 
   Future homeRefresh() async {
     await getMasterData();
@@ -70,16 +74,54 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         );
       }
     }
-    List<DirectoryOS> tempDir = masterDirectories.reversed.toList();
-    setState(() {
-      masterDirectories = tempDir;
-    });
+    masterDirectories = masterDirectories.reversed.toList();
     return masterDirectories;
   }
 
   @override
   void initState() {
     super.initState();
+    _intentDataStreamSubscription = ReceiveSharingIntent.getMediaStream()
+        .listen((List<SharedMediaFile> value) {
+      setState(() {
+        print("Shared:" + (_sharedFiles?.map((f) => f.path)?.join(",") ?? ""));
+        _sharedFiles = value;
+      });
+      List<File> files = [];
+      _sharedFiles.forEach((f) {
+        if (f.path.endsWith('.pdf')) files.add(File(f.path));
+      });
+      if (files.length > 0)
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+            builder: (context) => MergeScreen(
+              shareFiles: files,
+            ),
+          ),
+        );
+    }, onError: (err) {
+      print("getIntentDataStream error: $err");
+    });
+
+    // For sharing images coming from outside the app while the app is closed
+    ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
+      setState(() {
+        _sharedFiles = value;
+      });
+      List<File> files = [];
+      _sharedFiles.forEach((f) {
+        if (f.path.endsWith('.pdf')) files.add(File(f.path));
+      });
+      if (files.length > 0)
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+            builder: (context) => MergeScreen(
+              shareFiles: files,
+            ),
+          ),
+        );
+    });
+
     askPermission();
     getMasterData();
 
@@ -148,6 +190,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    _intentDataStreamSubscription.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -211,49 +259,28 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             },
                             borderRadius: BorderRadius.circular(10.0),
                             child: ListTile(
-                              // trailing: IconButton(
-                              //   icon: Icon(Icons.delete_outline,
-                              //       color: Colors.red),
-                              //   onPressed: () {
-                              //     showDialog(
-                              //       context: context,
-                              //       builder: (context) => AlertDialog(
-                              //         title: Text('Delete Directory'),
-                              //         content: Text(
-                              //             'Are you sure you want to delete this directory?'),
-                              //         actions: [
-                              //           TextButton(
-                              //             child: Text('Cancel'),
-                              //             onPressed: () {
-                              //               Navigator.of(context).pop();
-                              //             },
-                              //           ),
-                              //           TextButton(
-                              //             child: Text('Delete',
-                              //                 style:
-                              //                     TextStyle(color: Colors.red)),
-                              //             onPressed: () {
-                              //               database.deleteDirectory(
-                              //                   dirPath:
-                              //                       masterDirectories[index]
-                              //                           .dirName);
-                              //               Navigator.of(context).pop();
-                              //               homeRefresh();
-                              //             },
-                              //             // DatabaseHelper.instance
-                              //             //     .deleteDirectory(
-                              //             //         dirPath:
-                              //             //             masterDirectories[index]
-                              //             //                 .dirPath);
-                              //             // Navigator.of(context).pop();
-                              //             // homeRefresh();
-                              //             // },
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     );
-                              //   },
-                              // ),
+                              trailing: IconButton(
+                                icon: Icon(Icons.delete_outline,
+                                    color: Colors.red),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text('Delete Directory'),
+                                      content: Text(
+                                          'Are you sure you want to delete this directory?'),
+                                      actions: [
+                                        TextButton(
+                                          child: Text('Cancel'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image.file(
