@@ -1,15 +1,21 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:pdf_merger/pdf_merger.dart';
+
 import 'pdf_viewer_screen.dart';
 
 class MergeScreen extends StatefulWidget {
-  const MergeScreen({Key key}) : super(key: key);
+  static String route = "MergeScreen";
+  final List<File> shareFiles;
+  MergeScreen({
+    Key key,
+    this.shareFiles,
+  }) : super(key: key);
 
   @override
   _MergeScreenState createState() => _MergeScreenState();
@@ -19,6 +25,25 @@ class _MergeScreenState extends State<MergeScreen> {
   List<File> _files = [];
   List<String> filePaths = [];
   bool canMerge = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _files = [];
+      filePaths = [];
+    });
+
+    try {
+      if (widget.shareFiles.length > 0) {
+        setState(() {
+          _files = widget.shareFiles;
+          filePaths = _files.map((file) => file.path).toList();
+          _files.length > 1 ? canMerge = true : canMerge = false;
+        });
+      }
+    } catch (e) {}
+  }
 
   mergeFiles() async {
     MergeMultiplePDFResponse response = await PdfMerger.mergeMultiplePDF(
@@ -65,15 +90,6 @@ class _MergeScreenState extends State<MergeScreen> {
     return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) +
         ' ' +
         suffixes[i];
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _files = [];
-      filePaths = [];
-    });
   }
 
   @override
